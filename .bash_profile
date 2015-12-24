@@ -1,7 +1,23 @@
-# Created by jiunwei on 2015-08-29
+# Created by jiunwei on 2015-12-24
+
+if [ -d /Applications/Postgres.app/Contents/Versions/9.4/bin ]; then
+  export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
+  export DATABASE_URL=postgres://jiunwei:@localhost/jiunwei
+fi
+
+if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+  export WORKON_HOME=$HOME/.virtualenvs
+  export PROJECT_HOME=$HOME/Dropbox/git
+  source /usr/local/bin/virtualenvwrapper.sh
+fi
 
 alias ls='ls -FG'
 alias ll='ls -l'
+
+if [ -f ~/bin/subl ]; then
+  export PATH=$PATH:~/bin
+  export EDITOR='subl -w'
+fi
 
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
   source $(brew --prefix)/etc/bash_completion
