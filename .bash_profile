@@ -1,4 +1,4 @@
-# Created by jiunwei on 2015-12-24
+# Updated by jiunwei on 2016-01-12
 
 if [ -d /Applications/Postgres.app/Contents/Versions/9.4/bin ]; then
   export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
@@ -11,17 +11,24 @@ if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
   source /usr/local/bin/virtualenvwrapper.sh
 fi
 
-alias ls='ls -FG'
-alias ll='ls -l'
+if [ -d ~/bin ]; then
+  export PATH=$PATH:~/bin
+fi
 
 if [ -f ~/bin/subl ]; then
-  export PATH=$PATH:~/bin
   export EDITOR='subl -w'
 fi
 
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
   source $(brew --prefix)/etc/bash_completion
 fi
+
+if [ -f $(brew --prefix)/bin/rbenv ]; then
+  eval "$(rbenv init -)"
+fi
+
+alias ls='ls -FG'
+alias ll='ls -l'
 
 PS1='\[\033]0;${PWD//[^[:ascii:]]/?}\007\]' # set window title
 PS1="$PS1"'\n'                 # new line
