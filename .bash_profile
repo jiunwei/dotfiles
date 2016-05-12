@@ -1,4 +1,4 @@
-# Updated by jiunwei on 2016-01-12
+# Updated by jiunwei on 2016-05-12
 
 if [ -d /Applications/Postgres.app/Contents/Versions/9.4/bin ]; then
   export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
@@ -19,12 +19,15 @@ if [ -f ~/bin/subl ]; then
   export EDITOR='subl -w'
 fi
 
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-  source $(brew --prefix)/etc/bash_completion
+if [ -f /usr/local/bin/rbenv ]; then
+  eval "$(rbenv init -)"
 fi
 
-if [ -f $(brew --prefix)/bin/rbenv ]; then
-  eval "$(rbenv init -)"
+export NVM_DIR="/Users/jiunwei/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+if [ -f /usr/local/etc/bash_completion ]; then
+  source /usr/local/etc/bash_completion
 fi
 
 alias ls='ls -FG'
