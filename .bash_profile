@@ -1,8 +1,12 @@
-# Updated by jiunwei on 2016-05-24
+# Updated by jiunwei on 2016-07-09
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 if [ -d /Applications/Postgres.app/Contents/Versions/latest/bin ]; then
   export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
-  export DATABASE_URL=postgres://jiunwei:@localhost/jiunwei
+  # export DATABASE_URL=postgres://jiunwei:@localhost/jiunwei
+  export PGHOST=localhost
 fi
 
 if [ -d ~/Library/Android/sdk ]; then
