@@ -1,4 +1,4 @@
-# Updated by jiunwei on 2016-07-09
+# Updated by jiunwei on 2016-07-17
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -10,22 +10,32 @@ if [ -d /Applications/Postgres.app/Contents/Versions/latest/bin ]; then
 fi
 
 if [ -d ~/Library/Android/sdk ]; then
-  export ANDROID_HOME=$HOME/Library/Android/sdk
-  export ANDROID_SDK=$HOME/Library/Android/sdk
-  export PATH=$PATH:~/Library/Android/sdk/tools:~/Library/Android/sdk/platform-tools
+  export ANDROID_HOME=~/Library/Android/sdk
+  export ANDROID_SDK=$ANDROID_HOME
+  export ANDROID_SDK_ROOT=$ANDROID_HOME
+  export PATH=$PATH:$ANDROID_HOME:$ANDROID_HOME/tools:~$ANDROID_HOME/platform-tools
 fi
 
 if [ -d ~/bin/ndk ]; then
-  export ANDROID_NDK=$HOME/bin/ndk
-  export PATH=$PATH:~/bin/ndk
+  export ANDROID_NDK=~/bin/ndk
+  export NDK_ROOT=$ANDROID_NDK
+  export PATH=$PATH:$ANDROID_NDK
 elif [ -d ~/Library/Android/sdk/ndk-bundle ]; then
-  export ANDROID_NDK=$HOME/Library/Android/sdk/ndk-bundle
-  export PATH=$PATH:~/Library/Android/sdk/ndk-bundle
+  export ANDROID_NDK=~/Library/Android/sdk/ndk-bundle
+  export NDK_ROOT=$ANDROID_NDK
+  export PATH=$PATH:$ANDROID_NDK
+fi
+
+if [ -d ~/bin/cocos2d-x ]; then
+export COCOS_X_ROOT=/Users/jiunwei/bin
+  export COCOS_CONSOLE_ROOT=$COCOS_X_ROOT/tools/cocos2d-console/bin
+  export COCOS_TEMPLATES_ROOT=$COCOS_X_ROOT/templates
+  export PATH=$PATH:$COCOS_X_ROOT:$COCOS_CONSOLE_ROOT:$COCOS_TEMPLATES_ROOT
 fi
 
 if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
-  export WORKON_HOME=$HOME/.virtualenvs
-  export PROJECT_HOME=$HOME/Dropbox/git
+  export WORKON_HOME=~/.virtualenvs
+  export PROJECT_HOME=~/Dropbox/git
   source /usr/local/bin/virtualenvwrapper.sh
 fi
 
@@ -41,7 +51,7 @@ if [ -f /usr/local/bin/rbenv ]; then
   eval "$(rbenv init -)"
 fi
 
-export NVM_DIR=$HOME/.nvm
+export NVM_DIR=~/.nvm
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 if [ -f /usr/local/etc/bash_completion ]; then
