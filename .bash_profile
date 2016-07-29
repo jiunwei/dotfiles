@@ -1,4 +1,4 @@
-# Updated by jiunwei on 2016-07-17
+# Updated by jiunwei on 2016-07-20
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -16,8 +16,8 @@ if [ -d ~/Library/Android/sdk ]; then
   export PATH=$PATH:$ANDROID_HOME:$ANDROID_HOME/tools:~$ANDROID_HOME/platform-tools
 fi
 
-if [ -d ~/bin/ndk ]; then
-  export ANDROID_NDK=~/bin/ndk
+if [ -d ~/bin/android-ndk ]; then
+  export ANDROID_NDK=~/bin/android-ndk
   export NDK_ROOT=$ANDROID_NDK
   export PATH=$PATH:$ANDROID_NDK
 elif [ -d ~/Library/Android/sdk/ndk-bundle ]; then
@@ -26,11 +26,16 @@ elif [ -d ~/Library/Android/sdk/ndk-bundle ]; then
   export PATH=$PATH:$ANDROID_NDK
 fi
 
+if [ -d /usr/local/Cellar/ant/1.9.7/bin ]; then
+  export ANT_ROOT=/usr/local/Cellar/ant/1.9.7/bin
+  export PATH=$PATH:$ANT_ROOT
+fi
+
 if [ -d ~/bin/cocos2d-x ]; then
-export COCOS_X_ROOT=/Users/jiunwei/bin
-  export COCOS_CONSOLE_ROOT=$COCOS_X_ROOT/tools/cocos2d-console/bin
-  export COCOS_TEMPLATES_ROOT=$COCOS_X_ROOT/templates
-  export PATH=$PATH:$COCOS_X_ROOT:$COCOS_CONSOLE_ROOT:$COCOS_TEMPLATES_ROOT
+  export COCOS_X_ROOT=/Users/jiunwei/bin
+  export COCOS_CONSOLE_ROOT=$COCOS_X_ROOT/cocos2d-x/tools/cocos2d-console/bin
+  export COCOS_TEMPLATES_ROOT=$COCOS_X_ROOT/cocos2d-x/templates
+  export PATH=$PATH:$COCOS_CONSOLE_ROOT:$COCOS_TEMPLATES_ROOT
 fi
 
 if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
