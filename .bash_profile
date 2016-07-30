@@ -13,7 +13,7 @@ if [ -d ~/Library/Android/sdk ]; then
   export ANDROID_HOME=~/Library/Android/sdk
   export ANDROID_SDK=$ANDROID_HOME
   export ANDROID_SDK_ROOT=$ANDROID_HOME
-  export PATH=$PATH:$ANDROID_HOME:$ANDROID_HOME/tools:~$ANDROID_HOME/platform-tools
+  export PATH=$PATH:$ANDROID_HOME:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 fi
 
 if [ -d ~/bin/android-ndk ]; then
