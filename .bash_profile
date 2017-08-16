@@ -1,4 +1,4 @@
-# Updated by jiunwei on 2016-12-16
+# Updated by jiunwei on 2017-08-15
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -41,6 +41,9 @@ fi
 if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
   export WORKON_HOME=~/.virtualenvs
   export PROJECT_HOME=~/Dropbox/git
+  if [ -f /usr/local/bin/python2 ]; then
+    export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2
+  fi
   source /usr/local/bin/virtualenvwrapper.sh
 fi
 
