@@ -1,4 +1,4 @@
-# Updated by jiunwei on 2017-08-15
+# Updated by jiunwei on 2017-10-10
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -49,6 +49,10 @@ fi
 
 if [ -d ~/bin ]; then
   export PATH=$PATH:~/bin
+fi
+
+if [ -d ~/bin/flutter/bin ]; then
+  export PATH=$PATH:~/bin/flutter/bin
 fi
 
 if [ -f ~/bin/subl ]; then
