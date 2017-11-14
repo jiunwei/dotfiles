@@ -1,11 +1,10 @@
-# Updated by jiunwei on 2017-10-10
+# Updated by jiunwei on 2017-11-12
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 if [ -d /Applications/Postgres.app/Contents/Versions/latest/bin ]; then
   export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
-  # export DATABASE_URL=postgres://jiunwei:@localhost/jiunwei
   export PGHOST=localhost
 fi
 
@@ -16,19 +15,10 @@ if [ -d ~/Library/Android/sdk ]; then
   export PATH=$PATH:$ANDROID_HOME:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 fi
 
-if [ -d ~/bin/android-ndk ]; then
-  export ANDROID_NDK=~/bin/android-ndk
-  export NDK_ROOT=$ANDROID_NDK
-  export PATH=$PATH:$ANDROID_NDK
-elif [ -d ~/Library/Android/sdk/ndk-bundle ]; then
+if [ -d ~/Library/Android/sdk/ndk-bundle ]; then
   export ANDROID_NDK=~/Library/Android/sdk/ndk-bundle
   export NDK_ROOT=$ANDROID_NDK
   export PATH=$PATH:$ANDROID_NDK
-fi
-
-if [ -d /usr/local/Cellar/ant/1.9.7/bin ]; then
-  export ANT_ROOT=/usr/local/Cellar/ant/1.9.7/bin
-  export PATH=$PATH:$ANT_ROOT
 fi
 
 if [ -d ~/bin/cocos2d-x ]; then
@@ -65,6 +55,7 @@ fi
 
 export NVM_DIR=~/.nvm
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 if [ -f /usr/local/bin/yarn ]; then
   export PATH="$PATH:`yarn global bin`"
@@ -76,17 +67,27 @@ fi
 
 alias ls='ls -FG'
 alias ll='ls -l'
+alias grep='grep --color=auto'
 
-PS1='\[\033]0;${PWD//[^[:ascii:]]/?}\007\]' # set window title
-PS1="$PS1"'\n'                 # new line
-PS1="$PS1"'\[\033[32m\]'       # change to green
-PS1="$PS1"'\u@\h '             # user@host<space>
-PS1="$PS1"'\[\033[33m\]'       # change to brownish yellow
-PS1="$PS1"'\w'                 # current working directory
-PS1="$PS1"'\[\033[36m\]'       # change color to cyan
-if [ -n "$(type -t __git_ps1)" ] && [ "$(type -t __git_ps1)" = function ]; then
-  PS1="$PS1"'`__git_ps1`'        # bash function
+# PS1='\[\033]0;${PWD//[^[:ascii:]]/?}\007\]' # set window title
+# PS1="$PS1"'\n'                 # new line
+# PS1="$PS1"'\[\033[32m\]'       # change to green
+# PS1="$PS1"'\u@\h '             # user@host<space>
+# PS1="$PS1"'\[\033[33m\]'       # change to brownish yellow
+# PS1="$PS1"'\w'                 # current working directory
+# PS1="$PS1"'\[\033[36m\]'       # change color to cyan
+# if [ -n "$(type -t __git_ps1)" ] && [ "$(type -t __git_ps1)" = function ]; then
+#   PS1="$PS1"'`__git_ps1`'        # bash function
+# fi
+# PS1="$PS1"'\[\033[0m\]'        # change color
+# PS1="$PS1"'\n'                 # new line
+# PS1="$PS1"'$ '                 # prompt: always $
+
+if [ -f /usr/local/bin/powerline-daemon ] && [ -f /usr/local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh ]; then
+  powerline-daemon -q
+  POWERLINE_BASH_CONTINUATION=1
+  POWERLINE_BASH_SELECT=1
+  . /usr/local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
+else
+  PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 fi
-PS1="$PS1"'\[\033[0m\]'        # change color
-PS1="$PS1"'\n'                 # new line
-PS1="$PS1"'$ '                 # prompt: always $
