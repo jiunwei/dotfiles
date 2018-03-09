@@ -31,8 +31,8 @@ fi
 if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
   export WORKON_HOME=~/.virtualenvs
   export PROJECT_HOME=~/Dropbox/git
-  if [ -f /usr/local/bin/python2 ]; then
-    export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2
+  if [ -f /usr/local/bin/python ]; then
+    export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
   fi
   source /usr/local/bin/virtualenvwrapper.sh
 fi
@@ -83,11 +83,11 @@ alias grep='grep --color=auto'
 # PS1="$PS1"'\n'                 # new line
 # PS1="$PS1"'$ '                 # prompt: always $
 
-if [ -f /usr/local/bin/powerline-daemon ] && [ -f /usr/local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh ]; then
+if [ -f /usr/local/bin/powerline-daemon ] && [ -f /usr/local/lib/python3.6/site-packages/powerline/bindings/bash/powerline.sh ]; then
   powerline-daemon -q
   POWERLINE_BASH_CONTINUATION=1
   POWERLINE_BASH_SELECT=1
-  . /usr/local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
+  . /usr/local/lib/python3.6/site-packages/powerline/bindings/bash/powerline.sh
 else
   PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 fi
