@@ -31,8 +31,8 @@ fi
 if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
   export WORKON_HOME=~/.virtualenvs
   export PROJECT_HOME=~/Dropbox/git
-  if [ -f /usr/local/bin/python ]; then
-    export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+  if [ -f /usr/local/bin/python3 ]; then
+    export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
   fi
   source /usr/local/bin/virtualenvwrapper.sh
 fi
