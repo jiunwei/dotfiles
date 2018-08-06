@@ -1,4 +1,4 @@
-# Updated by jiunwei on 2017-11-12
+# Updated by jiunwei on 2018-08-06
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -83,11 +83,11 @@ alias grep='grep --color=auto'
 # PS1="$PS1"'\n'                 # new line
 # PS1="$PS1"'$ '                 # prompt: always $
 
-if [ -f /usr/local/bin/powerline-daemon ] && [ -f /usr/local/lib/python3.6/site-packages/powerline/bindings/bash/powerline.sh ]; then
+if [ -f /usr/local/bin/powerline-daemon ] && [ -f /usr/local/lib/python3.7/site-packages/powerline/bindings/bash/powerline.sh ]; then
   powerline-daemon -q
   POWERLINE_BASH_CONTINUATION=1
   POWERLINE_BASH_SELECT=1
-  . /usr/local/lib/python3.6/site-packages/powerline/bindings/bash/powerline.sh
+  . /usr/local/lib/python3.7/site-packages/powerline/bindings/bash/powerline.sh
 else
   PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 fi
