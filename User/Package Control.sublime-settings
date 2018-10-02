@@ -1,0 +1,28 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"Anaconda",
+		"Babel",
+		"Clang Format",
+		"DashDoc",
+		"EasyClangComplete",
+		"EditorConfig",
+		"Emmet",
+		"GitGutter",
+		"HexViewer",
+		"HTML-CSS-JS Prettify",
+		"Line Endings Unify",
+		"MarkdownEditing",
+		"MarkdownPreview",
+		"Package Control",
+		"RawLineEdit",
+		"Sass",
+		"SublimeLinter",
+		"SublimeLinter-clang",
+		"SublimeLinter-jshint"
+	]
+}

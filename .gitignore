@@ -1,0 +1,4 @@
+.DS_Store
+.vscode
+User/*.*
+!User/*.sublime-settings

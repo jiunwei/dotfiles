@@ -1,4 +1,4 @@
-# Updated by jiunwei on 2018-08-06
+# Updated by jiunwei on 2018-10-02
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -45,6 +45,10 @@ if [ -d ~/bin/flutter/bin ]; then
   export PATH=$PATH:~/bin/flutter/bin
 fi
 
+if [ -d ~/anaconda3/bin ]; then
+  export PATH=$PATH:~/anaconda3/bin
+fi
+
 if [ -f ~/bin/subl ]; then
   export EDITOR='subl -w'
 fi
@@ -69,21 +73,7 @@ alias ls='ls -FG'
 alias ll='ls -l'
 alias grep='grep --color=auto'
 
-# PS1='\[\033]0;${PWD//[^[:ascii:]]/?}\007\]' # set window title
-# PS1="$PS1"'\n'                 # new line
-# PS1="$PS1"'\[\033[32m\]'       # change to green
-# PS1="$PS1"'\u@\h '             # user@host<space>
-# PS1="$PS1"'\[\033[33m\]'       # change to brownish yellow
-# PS1="$PS1"'\w'                 # current working directory
-# PS1="$PS1"'\[\033[36m\]'       # change color to cyan
-# if [ -n "$(type -t __git_ps1)" ] && [ "$(type -t __git_ps1)" = function ]; then
-#   PS1="$PS1"'`__git_ps1`'        # bash function
-# fi
-# PS1="$PS1"'\[\033[0m\]'        # change color
-# PS1="$PS1"'\n'                 # new line
-# PS1="$PS1"'$ '                 # prompt: always $
-
-if [ -f /usr/local/bin/powerline-daemon ] && [ -f /usr/local/lib/python3.7/site-packages/powerline/bindings/bash/powerline.sh ]; then
+if [ -f /usr/local/bin/powerline-daemon ] && [ -f `python3 -c "import site; print(site.getsitepackages()[0])"`/powerline/bindings/bash/powerline.sh ]; then
   powerline-daemon -q
   POWERLINE_BASH_CONTINUATION=1
   POWERLINE_BASH_SELECT=1
