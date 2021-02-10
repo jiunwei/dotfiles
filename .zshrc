@@ -1,5 +1,15 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:$HOME/bin/flutter/bin:$PATH
+if [ -x /opt/homebrew/bin/brew ]; then
+  eval $(/opt/homebrew/bin/brew shellenv)
+fi
+export PATH=$HOME/bin:$PATH
+if [ -d $HOME/bin/flutter/bin ]; then
+  export PATH="$PATH:$HOME/bin/flutter/bin"
+fi
+if [ -d /Applications/Postgres.app/Contents/Versions/latest/bin ]; then
+  export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
+  export PGHOST=localhost
+fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/jiunwei/.oh-my-zsh"
@@ -77,6 +87,7 @@ source $ZSH/oh-my-zsh.sh
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
+export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
@@ -98,6 +109,36 @@ export LANG=en_US.UTF-8
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+alias listscr='ffmpeg -f avfoundation -list_devices true -i ""'
+recordscr() {
+  ffmpeg -f avfoundation -r 1 -probesize 20M -threads 1 -i "${2:-1}:" -vcodec libx264 -b:v 128k -s hd720 "$1"
+}
+
+if [ -d "$HOME/perl5/lib/perl5" ]; then
+  eval $(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)
+fi
+
+if [ -e "$HOME/.cargo/env" ]; then
+  source "$HOME/.cargo/env"
+fi
+
 if [ -x /usr/local/bin/pyenv ]; then
   eval "$(pyenv init -)"
 fi
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/jiunwei/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/jiunwei/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/jiunwei/opt/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/jiunwei/opt/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
