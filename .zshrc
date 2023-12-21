@@ -1,18 +1,8 @@
 # If you come from bash you might have to change your $PATH.
-if [ -x /opt/homebrew/bin/brew ]; then
-  eval $(/opt/homebrew/bin/brew shellenv)
-fi
-export PATH=$HOME/bin:$PATH
-if [ -d $HOME/bin/flutter/bin ]; then
-  export PATH="$PATH:$HOME/bin/flutter/bin"
-fi
-if [ -d /Applications/Postgres.app/Contents/Versions/latest/bin ]; then
-  export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
-  export PGHOST=localhost
-fi
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/jiunwei/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -22,7 +12,7 @@ ZSH_THEME="agnoster"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
@@ -33,17 +23,16 @@ ZSH_THEME="agnoster"
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+# zstyle ':omz:update' frequency 13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
+# DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -55,6 +44,9 @@ ZSH_THEME="agnoster"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
 # COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
@@ -74,11 +66,11 @@ ZSH_THEME="agnoster"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git asdf)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -111,33 +103,86 @@ export LANG=en_US.UTF-8
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-alias listscr='ffmpeg -f avfoundation -list_devices true -i ""'
-recordscr() {
-  ffmpeg -f avfoundation -r 1 -probesize 20M -threads 1 -i "${2:-1}:" -vcodec libx264 -b:v 128k -s hd720 "$1"
-}
+if [ -d "$HOME/.nvm" ]; then
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-if [ -d "$HOME/perl5/lib/perl5" ]; then
-  eval $(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)
+  # Taken from https://github.com/creationix/nvm#zsh
+  # place this after nvm initialization!
+  autoload -U add-zsh-hook
+
+  load-nvmrc() {
+    local nvmrc_path
+    nvmrc_path="$(nvm_find_nvmrc)"
+
+    if [ -n "$nvmrc_path" ]; then
+      local nvmrc_node_version
+      nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+      if [ "$nvmrc_node_version" = "N/A" ]; then
+        nvm install
+      elif [ "$nvmrc_node_version" != "$(nvm version)" ]; then
+        nvm use
+      fi
+    elif [ -n "$(PWD=$OLDPWD nvm_find_nvmrc)" ] && [ "$(nvm version)" != "$(nvm version default)" ]; then
+      echo "Reverting to nvm default version"
+      nvm use default
+    fi
+  }
+
+  add-zsh-hook chpwd load-nvmrc
+  load-nvmrc
+fi
+
+if [ -x /usr/local/bin/pyenv ]; then
+  eval "$(/usr/local/bin/pyenv init -)"
+fi
+
+if [ -x /opt/homebrew/bin/brew ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 if [ -e "$HOME/.cargo/env" ]; then
   source "$HOME/.cargo/env"
 fi
 
-if [ -x /usr/local/bin/pyenv ]; then
-  eval "$(pyenv init -)"
+if [ -d "$HOME/perl5/lib/perl5" ]; then
+  eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
+fi
+
+if [ -d "$HOME/.gem" ]; then
+  export GEM_HOME="$HOME/.gem"
+  export PATH="$GEM_HOME/bin:$PATH"
+fi
+
+if [ -d /Applications/Postgres.app/Contents/Versions/latest/bin ]; then
+  export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
+  export PGHOST=localhost
+fi
+
+if [ -d "$HOME/flutter/bin" ]; then
+  export PATH="$HOME/flutter/bin:$PATH"
+fi
+
+if [ -d "$HOME/bin" ]; then
+  export PATH="$HOME/bin:$PATH"
+fi
+
+if [ -d "$HOME/.local/bin" ]; then
+  export PATH="$HOME/.local/bin:$PATH"
 fi
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/jiunwei/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/Users/jiunwei/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/Users/jiunwei/opt/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/jiunwei/opt/anaconda3/etc/profile.d/conda.sh"
+    if [ -f "/Users/jiunwei/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/jiunwei/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/Users/jiunwei/opt/anaconda3/bin:$PATH"
+        export PATH="/Users/jiunwei/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
